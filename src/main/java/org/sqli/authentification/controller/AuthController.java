@@ -14,7 +14,6 @@ import org.sqli.authentification.service.AuthService;
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
 
-
     private final AuthService authService;
 
     public AuthController(AuthService authService) {

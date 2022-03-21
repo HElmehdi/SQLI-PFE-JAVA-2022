@@ -6,7 +6,7 @@ import org.sqli.authentification.dao.UserDAO;
 import org.sqli.authentification.dto.UserLoggedInDTO;
 import org.sqli.authentification.dto.UserLoginFormDTO;
 import org.sqli.authentification.entitie.User;
-import org.sqli.authentification.exception.AuthFailedException;
+import org.sqli.authentification.exception.AuthException;
 import org.sqli.authentification.repository.UserRepository;
 
 @Service
@@ -24,10 +24,13 @@ public class AuthServiceImp implements AuthService {
     @Override
     public UserLoggedInDTO login(UserLoginFormDTO userLoginFormDto) {
         log.info("login attempt with data {}", userLoginFormDto);
-        return userDao
+        UserLoggedInDTO userLoggedIn = userDao
                 .findByLoginAndPassword(userLoginFormDto.getLogin(), userLoginFormDto.getPassword())
                 .map(user -> mapToLoggedInDTO(user, new UserLoggedInDTO()))
-                .orElseThrow(() -> new AuthFailedException("Authentication error"));
+                .orElseThrow(() -> new AuthException("Authentication error"));
+        if(!userLoggedIn.isEnabled()) throw new AuthException("User disabled");
+
+        return userLoggedIn;
     }
 
 
@@ -40,6 +43,7 @@ public class AuthServiceImp implements AuthService {
         userLoggedInDTO.setId(user.getId());
         userLoggedInDTO.setLogin(user.getLogin());
         userLoggedInDTO.setGroup(user.getGroup().getName());
+        userLoggedInDTO.setEnabled(user.isEnabled());
         return userLoggedInDTO;
     }
 
