@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class RestExceptionHandler {
     // handle exceptions here
-    @ExceptionHandler(AuthFailedException.class)
-    public ResponseEntity<ErrorResponse> handleAuthFailure(final AuthFailedException exception) {
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<ErrorResponse> handleAuthFailure(final AuthException exception) {
         log.error(exception.getMessage());
         final ErrorResponse errorResponse = new ErrorResponse();;
         errorResponse.setError(exception.getMessage());
