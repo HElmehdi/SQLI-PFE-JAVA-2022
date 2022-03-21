@@ -28,7 +28,13 @@ public class AuthServiceImp implements AuthService {
                 .findByLoginAndPassword(userLoginFormDto.getLogin(), userLoginFormDto.getPassword())
                 .map(user -> mapToLoggedInDTO(user, new UserLoggedInDTO()))
                 .orElseThrow(() -> new AuthException("Authentication error"));
-        if(!userLoggedIn.isEnabled()) throw new AuthException("User disabled");
+
+        if(userLoggedIn.getLoginattempts() >= 3) {
+            throw new AuthException("You have reached 3 failed authentication attempts, your account will be disabled");
+        }
+        if(!userLoggedIn.isEnabled()) {
+            throw new AuthException("User disabled");
+        }
 
         return userLoggedIn;
     }
