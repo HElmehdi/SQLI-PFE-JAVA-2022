@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorResponse {
-    // object to return in case of exception
+    private Integer httpStatus;
+    private String exception;
     private String error;
 }
-
-
