@@ -6,6 +6,7 @@ import org.sqli.authentification.dao.UserDAO;
 import org.sqli.authentification.dto.UserLoggedInDTO;
 import org.sqli.authentification.dto.UserLoginFormDTO;
 import org.sqli.authentification.entitie.User;
+import org.sqli.authentification.exception.AuthFailedException;
 import org.sqli.authentification.repository.UserRepository;
 
 @Service
@@ -26,7 +27,7 @@ public class AuthServiceImp implements AuthService {
         return userDao
                 .findByLoginAndPassword(userLoginFormDto.getLogin(), userLoginFormDto.getPassword())
                 .map(user -> mapToLoggedInDTO(user, new UserLoggedInDTO()))
-                .get();
+                .orElseThrow(() -> new AuthFailedException("Authentication error"));
     }
 
 
