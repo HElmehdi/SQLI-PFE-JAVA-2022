@@ -1,16 +1,16 @@
 CREATE TABLE user (
-  id                INTEGER PRIMARY KEY,
-  login             VARCHAR(64) NOT NULL,
-  password          VARCHAR(64) NOT NULL,
-  enabled           INTEGER DEFAULT 1 NOT NULL,
-  loginAttempts     INTEGER DEFAULT 0 NOT NULL,
-  group_id          INTEGER not null
-  );
+                      id                INTEGER PRIMARY KEY AUTO_INCREMENT,
+                      login             VARCHAR(64) NOT NULL UNIQUE,
+                      password          VARCHAR(64) NOT NULL,
+                      enabled           INTEGER DEFAULT 1 NOT NULL,
+                      loginAttempts     INTEGER DEFAULT 0 NOT NULL,
+                      group_id          INTEGER not null
+);
 
 CREATE TABLE user_group (
-  id                INTEGER PRIMARY KEY,
-  name              VARCHAR(64) NOT NULL
-  );
+                            id                INTEGER PRIMARY KEY,
+                            name              VARCHAR(64) NOT NULL
+);
 
 INSERT INTO user_group VALUES (1,'admin');
 INSERT INTO user_group VALUES (2,'member');
