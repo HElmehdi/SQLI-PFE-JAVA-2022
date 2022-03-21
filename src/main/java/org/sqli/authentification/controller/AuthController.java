@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.sqli.authentification.dto.UserLoginFormDTO;
 import org.sqli.authentification.dto.UserLoggedInDTO;
-import org.sqli.authentification.service.AuthService;
+import org.sqli.authentification.service.auth.AuthService;
 
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<UserLoggedInDTO> createUser(@RequestBody  final UserLoginFormDTO userLoginFormDTO) {
+    public ResponseEntity<UserLoggedInDTO> login(@RequestBody  final UserLoginFormDTO userLoginFormDTO) {
         return ResponseEntity.ok(authService.login(userLoginFormDTO));
     }
 

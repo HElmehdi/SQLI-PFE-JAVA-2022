@@ -14,8 +14,9 @@ import javax.persistence.*;
 @Table(name = "userGroup")
 public class UserGroup {
 
+    @Setter(AccessLevel.NONE)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
