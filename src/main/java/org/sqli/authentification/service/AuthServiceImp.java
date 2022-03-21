@@ -28,6 +28,7 @@ public class AuthServiceImp implements AuthService {
                 .findByLoginAndPassword(userLoginFormDto.getLogin(), userLoginFormDto.getPassword())
                 .map(user -> mapToLoggedInDTO(user, new UserLoggedInDTO()))
                 .orElseThrow(() -> new AuthFailedException("Authentication error"));
+
     }
 
 
