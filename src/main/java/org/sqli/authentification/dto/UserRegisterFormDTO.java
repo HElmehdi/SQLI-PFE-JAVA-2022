@@ -3,6 +3,7 @@ package org.sqli.authentification.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.sqli.authentification.annotation.MatchField;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @ToString
+@MatchField(first = "password", second = "confirmPassword", message = "password and confirm password must be a match")
 public class UserRegisterFormDTO {
 
     @Size(min = 5, max = 50, message = "login must be between 5 and 60 characters" )
